@@ -73,7 +73,7 @@ function readStyles(pathToItem) {
     const readStream = createReadStream(pathToItem, 'utf-8');
 
     readStream.on('data', (chunk) => {
-      styles.unshift(chunk);
+      styles.push(chunk);
     });
 
     readStream.on('end', () => {
@@ -92,7 +92,7 @@ async function buildStyle(folder) {
     }
   }
 
-  styles = styles.join('\r\n');
+  styles = styles.reverse().join('\r\n');
   const bundlePath = path.join(__dirname, 'project-dist', 'style.css');
 
   writeFile(bundlePath, styles);
